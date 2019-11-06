@@ -11,7 +11,9 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -64,5 +66,36 @@ public class MainActivity extends AppCompatActivity {
         String myString=String.valueOf(number);
         myText.setText(myString);
 
+        EditText userInput;
+        TextView userMsg = (TextView) this.findViewById(R.id.userMsg);
+        int userNumber;
+
+        userInput = (EditText)findViewById(R.id.userInput);
+        String validate = userInput.getText().toString();
+
+        if(validate.isEmpty()){
+            Toast.makeText(MainActivity.this, "Please be sure to enter a number",
+                    Toast.LENGTH_LONG).show();
+            userInput.getText().clear();
+        }
+        else{
+            userNumber = Integer.valueOf(userInput.getText().toString());
+            compare( userNumber, userMsg, userInput, number);
+        }
+
     }
+
+    public void compare(int userNumber, TextView userMsg, EditText userInput, int number){
+        if(userNumber==number){
+            userMsg.setText("Congratulations! You guessed the dice number!");
+            userInput.getText().clear();
+        }
+
+        else{
+            userMsg.setText("Incorrect guess. Try again.");
+            userInput.getText().clear();
+        }
+    }
+
+
 }
