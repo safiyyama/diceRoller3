@@ -19,6 +19,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    int Score =0;
+
     public void generate(View view){
 
         Random rand = new Random();
@@ -68,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         EditText userInput;
         TextView userMsg = (TextView) this.findViewById(R.id.userMsg);
+        TextView scoreTxt = (TextView)this.findViewById(R.id.score);
         int userNumber;
 
         userInput = (EditText)findViewById(R.id.userInput);
@@ -80,13 +85,17 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             userNumber = Integer.valueOf(userInput.getText().toString());
-            compare( userNumber, userMsg, userInput, number);
+            compare( userNumber, userMsg, scoreTxt, userInput, number);
         }
 
     }
 
-    public void compare(int userNumber, TextView userMsg, EditText userInput, int number){
+    public void compare(int userNumber, TextView userMsg, TextView scoreTxt, EditText userInput, int number){
+
         if(userNumber==number){
+
+            Score++;
+            scoreTxt.setText("You have guessed correctly this many times: "+Score);
             userMsg.setText("Congratulations! You guessed the dice number!");
             userInput.getText().clear();
         }
